@@ -31,7 +31,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 body {
@@ -40,20 +39,4 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Mobile: lock the page itself so only the document list scrolls — the
-     navbar and button stay put — and kill the rubber-band bounce. */
-  overflow: hidden;
-  overscroll-behavior: none;
-}
-
-/* Desktop: let the page scroll normally if the card is taller than the window. */
-@media (min-width: 900px) {
-  html,
-  body {
-    height: auto;
-  }
-  body {
-    overflow: auto;
-    overscroll-behavior: auto;
-  }
 }

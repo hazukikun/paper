@@ -6,16 +6,10 @@
    ========================================================================= */
 
 .app {
-  /* Pin the whole screen to the viewport. position:fixed is the reliable way
-     to stop iOS Safari from rubber-band scrolling the entire page — only the
-     document list inside is allowed to scroll. */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  /* 100dvh = the *visible* viewport height on mobile, so the button is never
-     hidden behind the browser's address bar. */
-  height: 100dvh;
+  /* At least the full visible viewport (100dvh accounts for the browser's
+     address bar), but it can grow taller if the document list is long — then
+     the page scrolls normally, which keeps pull-to-refresh working. */
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--background-lower);
@@ -36,6 +30,10 @@
 /* ---------- Navbar (pinned at the top) ---------- */
 .navbar {
   flex-shrink: 0;
+  /* Stays pinned to the top while the content scrolls underneath it, but the
+     page is still a normal scroll container, so pull-to-refresh keeps working. */
+  position: sticky;
+  top: 0;
   background: var(--background-primary-elevated);
   border-bottom-left-radius: var(--radius-32);
   border-bottom-right-radius: var(--radius-32);
@@ -72,7 +70,6 @@
   border-bottom-right-radius: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   /* 20px top + 20px bottom. The bottom 20px is the gap under the button. */
   padding: 20px 0;
 }
@@ -107,9 +104,6 @@
   margin: 0;
   flex: 1; /* takes the free space, pushing the button to the bottom */
   min-height: 0;
-  overflow-y: auto; /* this is the ONLY thing that scrolls on mobile */
-  overscroll-behavior: contain; /* keep the scroll inside the list */
-  -webkit-overflow-scrolling: touch; /* smooth momentum scrolling on iOS */
   padding: 8px 20px;
   display: flex;
   flex-direction: column;
@@ -272,6 +266,8 @@
   }
 
   .navbar {
+    /* On desktop the navbar is part of the floating card, not pinned. */
+    position: static;
     /* On desktop the notch safe-area doesn't apply. */
     padding: 12px 32px;
   }
