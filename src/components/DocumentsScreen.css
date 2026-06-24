@@ -100,7 +100,9 @@
   margin: 0;
   flex: 1; /* takes the free space, pushing the button to the bottom */
   min-height: 0;
-  overflow-y: auto; /* scrolls if there are many documents */
+  overflow-y: auto; /* this is the ONLY thing that scrolls on mobile */
+  overscroll-behavior: contain; /* keep the scroll inside the list */
+  -webkit-overflow-scrolling: touch; /* smooth momentum scrolling on iOS */
   padding: 8px 20px;
   display: flex;
   flex-direction: column;
