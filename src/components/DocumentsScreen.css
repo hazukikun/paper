@@ -6,6 +6,13 @@
    ========================================================================= */
 
 .app {
+  /* Pin the whole screen to the viewport. position:fixed is the reliable way
+     to stop iOS Safari from rubber-band scrolling the entire page — only the
+     document list inside is allowed to scroll. */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   /* 100dvh = the *visible* viewport height on mobile, so the button is never
      hidden behind the browser's address bar. */
   height: 100dvh;
