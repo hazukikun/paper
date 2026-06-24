@@ -1,0 +1,42 @@
+/* Design tokens taken directly from the Figma file (the MTS design system).
+   Keeping them as CSS variables means a colour only has to change in one place. */
+:root {
+  --background-lower: #f2f3f7; /* page background */
+  --background-primary-elevated: #ffffff; /* navbar / cards */
+  --card-background: #ffffff;
+  --form-background: #f2f3f7; /* the grey pill behind each file row */
+
+  --text-primary: #1d2023;
+  --text-secondary: #626c77;
+  --icon: #8d969f;
+
+  --controls-primary-active: #ff0032; /* the red "Подписать" button */
+  --pdf-red: #ff0032;
+
+  --radius-32: 32px;
+  --radius-16: 16px;
+
+  /* MTS fonts are not public, so we fall back to a clean system stack. */
+  --font-base: "MTS Compact", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-wide: "MTS Wide", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-base);
+  background: var(--background-lower);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

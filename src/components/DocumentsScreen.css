@@ -1,0 +1,290 @@
+/* =========================================================================
+   MOBILE FIRST (default styles = phone web)
+   - navbar pinned at top
+   - card fills the whole viewport height
+   - "Подписать" button always visible at the bottom
+   ========================================================================= */
+
+.app {
+  /* 100dvh = the *visible* viewport height on mobile, so the button is never
+     hidden behind the browser's address bar. */
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-lower);
+}
+
+/* The side menu is desktop-only — hidden on phones. */
+.sidebar {
+  display: none;
+}
+
+.content {
+  flex: 1;
+  min-height: 0; /* allows the inner card to shrink/scroll correctly */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Navbar (pinned at the top) ---------- */
+.navbar {
+  flex-shrink: 0;
+  background: var(--background-primary-elevated);
+  border-bottom-left-radius: var(--radius-32);
+  border-bottom-right-radius: var(--radius-32);
+  /* Top padding respects the phone's notch / status bar safe area. */
+  padding: max(12px, env(safe-area-inset-top)) 32px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 44px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  z-index: 3;
+}
+
+.navbar__title {
+  margin: 0;
+  font-family: var(--font-base);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--text-primary);
+}
+
+/* ---------- Card ---------- */
+.card {
+  flex: 1; /* fills the rest of the viewport on mobile */
+  min-height: 0;
+  margin-top: 12px; /* gap between navbar and card */
+  background: var(--card-background);
+  /* On mobile the card reaches the bottom edge, so only the TOP corners
+     are rounded — the bottom corners stay square. */
+  border-top-left-radius: var(--radius-32);
+  border-top-right-radius: var(--radius-32);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* 20px top + 20px bottom. The bottom 20px is the gap under the button. */
+  padding: 20px 0;
+}
+
+.card__heading {
+  flex-shrink: 0;
+  padding: 12px 20px;
+}
+
+.card__title {
+  margin: 0;
+  font-family: var(--font-wide);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.2px;
+  color: var(--text-primary);
+}
+
+.card__subtitle {
+  margin: 8px 0 0;
+  font-family: var(--font-base);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+/* ---------- File list ---------- */
+.file-list {
+  list-style: none;
+  margin: 0;
+  flex: 1; /* takes the free space, pushing the button to the bottom */
+  min-height: 0;
+  overflow-y: auto; /* scrolls if there are many documents */
+  padding: 8px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.file-row {
+  background: var(--form-background);
+  border-radius: var(--radius-16);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.file-row__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.file-row__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-row__name {
+  margin: 0;
+  font-family: var(--font-base);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+.file-row__meta {
+  margin: 4px 0 0;
+  font-family: var(--font-base);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-secondary);
+}
+
+.file-row__download {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.file-row__download:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* ---------- Footer button (pinned to the bottom of the card) ---------- */
+.card__footer {
+  flex-shrink: 0;
+  /* No bottom padding here — the card's own 20px bottom padding is the
+     only gap under the button (exactly 20px from the screen edge). */
+  padding: 16px 20px 0;
+}
+
+.sign-button {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background: var(--controls-primary-active);
+  color: #fff;
+  border-radius: 16px;
+  height: 52px;
+  font-family: var(--font-wide);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: filter 0.15s ease;
+}
+
+.sign-button:hover {
+  filter: brightness(0.94);
+}
+
+.sign-button:active {
+  filter: brightness(0.88);
+}
+
+/* =========================================================================
+   DESKTOP (wide screens — desktop web)
+   - left side menu appears
+   - card "hugs" its content (does NOT fill the screen height)
+   - card is centered in the viewport
+   ========================================================================= */
+@media (min-width: 900px) {
+  .app {
+    height: auto;
+    min-height: 100vh;
+    flex-direction: row;
+    align-items: flex-start; /* pin content to the top, not centered */
+    justify-content: center; /* horizontally centers the card */
+    position: relative;
+    padding: 0 24px 24px; /* navbar sits flush against the top (y = 0) */
+  }
+
+  /* Side menu: pinned to the left, aligned with the top of the card. */
+  .sidebar {
+    display: flex;
+    position: absolute;
+    left: 88px;
+    top: 80px; /* lines up roughly with the card, like in the design */
+  }
+
+  .sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sidebar__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 12px;
+    text-align: left;
+  }
+
+  .sidebar__item:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .sidebar__icon {
+    display: inline-flex;
+  }
+
+  .sidebar__label {
+    font-family: var(--font-base);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 24px;
+    color: var(--text-primary);
+  }
+
+  /* The navbar + card column has a fixed width and hugs its height. */
+  .content {
+    flex: 0 0 auto;
+    width: 616px;
+    max-width: 100%;
+    height: auto; /* hug, not fill */
+  }
+
+  .navbar {
+    /* On desktop the notch safe-area doesn't apply. */
+    padding: 12px 32px;
+  }
+
+  /* Card hugs its content instead of stretching. */
+  .card {
+    flex: 0 0 auto;
+    height: auto;
+    width: 100%;
+    /* On desktop the card floats, so all four corners are rounded again. */
+    border-bottom-left-radius: var(--radius-32);
+    border-bottom-right-radius: var(--radius-32);
+  }
+
+  /* No more flex-grow: the list is only as tall as its rows. */
+  .file-list {
+    flex: 0 0 auto;
+    overflow-y: visible;
+  }
+
+  /* Button just follows the content (24px gap above it). */
+  .card__footer {
+    padding: 24px 20px 0;
+  }
+}
