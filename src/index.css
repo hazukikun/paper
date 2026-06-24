@@ -31,11 +31,14 @@ html,
 body {
   margin: 0;
   padding: 0;
+  /* White so the pull-to-refresh overscroll area (top & bottom) is white,
+     matching the navbar and card. The grey "page" colour lives on .app, which
+     covers the whole viewport, so the layout itself is unchanged. */
+  background: var(--background-primary-elevated);
 }
 
 body {
   font-family: var(--font-base);
-  background: var(--background-lower);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
